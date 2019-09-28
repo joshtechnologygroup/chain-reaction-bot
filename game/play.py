@@ -36,12 +36,12 @@ def play(player1, player2):
         pygame.display.flip()
 
     game.screen.fill((0, 0, 0))
-    myfont = pygame.font.SysFont("Comic Sans MS", 30)
-    myfont2 = pygame.font.SysFont("Comic Sans MS", 15)
-    textsurface = myfont.render("Game Over. Click anywhere to continue...", False, (255, 0, 0))
+    myfont = pygame.font.SysFont("Comic Sans MS", 20)
+    myfont2 = pygame.font.SysFont("Comic Sans MS", 20)
+    textsurface = myfont.render("Game Over.", False, (255, 0, 0))
     textsurface2 = myfont2.render("{} wins".format('Player1' if player1_won else 'player2'), False, (255, 255, 255))
     game.screen.blit(textsurface, (game.SCREEN_WIDTH // 3, game.SCREEN_HEIGHT // 2))
-    game.screen.blit(textsurface2, (game.SCREEN_WIDTH // 3 - 15, game.SCREEN_HEIGHT // 2 + 30))
+    game.screen.blit(textsurface2, (game.SCREEN_WIDTH // 3, game.SCREEN_HEIGHT // 2 + 30))
     pygame.display.flip()
     while True:
         for event in pygame.event.get():
@@ -55,9 +55,11 @@ def play(player1, player2):
 
 play(
     # Human(),
-    Bot(load_model('training_dir/850_episodes_2019-09-28 08:48:55.632555.h5')),
-    Bot(load_model('750_episodes_2019-09-28 08_49_48.574344.h5')),
-    # Bot(load_model('training_dir/600_episodes_2019-09-28 06:33:25.687126.h5')),
+    Bot(load_model('4025_episodes_2019-09-28 21_17_49.345774.h5')),
+    Human(),
+    # Bot(load_model('950_episodes_2019-09-28 21_15_18.759511.h5')),
+    # Human(),
+    # Bot(load_model('4025_episodes_2019-09-28 21_17_49.345774.h5')),
 
 )
 

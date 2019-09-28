@@ -50,11 +50,10 @@ def possiblePos(game):
     return game.get_possible_positions()
 
 
-def move(game, action, player=None):
+def move(game, action):
     game.make_move(int(action/game.board.columns), action % game.board.columns)
     win = game.check_game_over()
     return game, win
-    # return board, newsubBoard, win
 
 """ 
 ---------------------------------------------------------
@@ -64,7 +63,7 @@ Stuff to actually train the model
 ---------------------------------------------------------
 """
 
-def board_to_array(game, player=None):
+def board_to_array(game):
     return np.array(game.toArray())
 
 
@@ -74,7 +73,6 @@ def mcts(game):
     sArray = board_to_array(game)
     sTuple = tuple(map(tuple, sArray))
 
-    # if len(possibleA) > 0:
     if sTuple not in P.keys():
 
         policy, v = nn.predict(sArray.reshape(1, ROWS, COLUMNS))
@@ -107,8 +105,6 @@ def mcts(game):
         v = 1
     else:
         v = mcts(next_state)
-    # else:
-    #     return 0
 
     W[(sTuple, best_action)] += v
     Ns[sTuple] += 1
@@ -121,8 +117,6 @@ def get_action_probs(game):
     for _ in range(mcts_search):
         s = game.clone()
         mcts(s)
-
-    # print ("done one iteration of MCTS")
 
     actions_dict = {}
 
@@ -175,15 +169,6 @@ def neural_network():
     input_layer = layers.Input(shape=(ROWS, COLUMNS), name="BoardInput")
     reshape = layers.core.Reshape((ROWS, COLUMNS, 1))(input_layer)
     conv_1 = layers.Conv2D(128, (5, 3), padding='valid', activation='relu', name='conv1')(reshape)
-    # conv_2 = layers.Conv2D(128, (5, 3), padding='valid', activation='relu', name='conv2')(conv_1)
-    # conv_2 = layers.Conv2D(128, (1, 6), padding='valid', activation='relu', name='conv3')(conv_2)
-    # conv_2 = layers.Conv2D(128, (1, 6), padding='valid', activation='relu', name='conv2')(conv_2)
-    # conv_2 = layers.Conv2D(128, (1, 6), padding='valid', activation='relu', name='conv3')(conv_2)
-    # conv_2 = layers.Conv2D(128, (1, 6), padding='valid', activation='relu', name='conv2')(conv_2)
-    # conv_2 = layers.Conv2D(128, (1, 6), padding='valid', activation='relu', name='conv3')(conv_2)
-    # conv_2 = layers.Conv2D(128, (1, 6), padding='valid', activation='relu', name='conv2')(conv_2)
-    # conv_2 = layers.Conv2D(128, (1, 6), padding='valid', activation='relu', name='conv3')(conv_2)
-    # conv_3 = layers.Conv2D(128, (2, 2), padding='valid', activation='relu', name='conv3')(conv_2)
     conv_3 = conv_1
 
     conv_3_flat = layers.Flatten()(conv_3)
@@ -218,11 +203,11 @@ def train_nn(nn, game_mem):
     policy = np.array(policy)
     value = np.array(value)
 
-    history = nn.fit(state, [policy, value], batch_size=32, epochs=training_epochs, verbose=1)
+    nn.fit(state, [policy, value], batch_size=32, epochs=training_epochs, verbose=1)
 
 
 def pit(nn, new_nn):
-    # function pits the old and new networks. If new network wins 55/100 games or more, then return True
+    # function pits the old and new networks. If new network wins, then return True
     print("Pitting networks")
     nn_wins = 0
     new_nn_wins = 0

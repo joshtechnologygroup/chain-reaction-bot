@@ -8,6 +8,7 @@ dist/
 build/
 .idea/
 .eslintcache
+__pycache__/
 /reports
 .sass-cache
 /server/settings
