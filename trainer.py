@@ -327,9 +327,7 @@ def augment_game_memory(mem):
     return new_memory
 
 
-model_path = "tictactoeTie2019-09-24 08:14:46.941088.h5"
 # nn = neural_network()
-# nn = load_model(model_path)
 nn = initNN()
 
 
@@ -351,7 +349,8 @@ def train():
         old_nn = models.load_model('temp.h5')
 
         for _ in range(playgames_before_training):
-            game_mem += augment_game_memory(playgame())
+            # game_mem += augment_game_memory(playgame())
+            game_mem += playgame()
 
         train_nn(nn, game_mem)
         game_mem = []
