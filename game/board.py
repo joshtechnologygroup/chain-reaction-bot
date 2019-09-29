@@ -5,7 +5,7 @@ from pygame import Rect
 
 class Board:
 
-    def __init__(self, box_size=50, epoch=20, rows=5, columns=3, board_lines_color=(255, 0, 0)):
+    def __init__(self, box_size=100, epoch=50, rows=5, columns=3, board_lines_color=(255, 0, 0)):
         self.epoch = epoch
         self.box_size = box_size
         self.rows = rows

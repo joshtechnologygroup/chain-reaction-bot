@@ -38,7 +38,7 @@ Q = {}  # state-action values
 Nsa = {}  # number of times certain state-action pair has been visited
 Ns = {}  # number of times state has been visited
 W = {}  # number of total points collected after taking state action pair
-P = {}  # initial predicted probabilities of taking certain actions in state
+P = {}  # initial predicted probabilities of taking certain actions in state. Key: State
 
 
 

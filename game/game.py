@@ -11,8 +11,8 @@ class Game:
     def __init__(self, title="Chain Reaction"):
         pygame.init()
         pygame.font.init()
-        self.SCREEN_WIDTH = 200
-        self.SCREEN_HEIGHT = 300
+        self.SCREEN_WIDTH = 400
+        self.SCREEN_HEIGHT = 600
         self.size = [self.SCREEN_WIDTH, self.SCREEN_HEIGHT]
         self.title = title
         self.board = Board()
